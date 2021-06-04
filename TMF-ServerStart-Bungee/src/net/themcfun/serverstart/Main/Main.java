@@ -18,9 +18,10 @@ public class Main extends Plugin{
 	@Override
 	public void onEnable() {
 		
-		registerCommands();
-		
 		System.out.println("[TMF-Serverstart] sucessfully loaded!");
+		System.out.println("[TMF-Serverstart] /n/n/n/n/n/n/n...dies ist (k)ein Zeilenumbruch!");
+		
+		registerCommands();
 		
 		try {
 		if(!getDataFolder().exists()) {
@@ -50,7 +51,7 @@ public class Main extends Plugin{
 	}	
 	private void registerCommands() {
 	   
-		ProxyServer.getInstance().getPluginManager().registerCommand(this, new ServerstartCMD("msg"));
+		ProxyServer.getInstance().getPluginManager().registerCommand(this, new ServerstartCMD("startserver"));
 		
 	}
 	public void startserver() {
