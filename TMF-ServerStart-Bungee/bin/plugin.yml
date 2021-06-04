@@ -1,0 +1,8 @@
+name: TMF-Serverstart [Bungee]
+version: 1.0.0
+author: redstonestudios
+main: net.themcfun.serverstart.Main
+
+commands:
+  startserver:
+    aliases: ss
