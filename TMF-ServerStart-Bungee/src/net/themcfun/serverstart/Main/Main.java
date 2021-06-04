@@ -18,8 +18,8 @@ public class Main extends Plugin{
 	@Override
 	public void onEnable() {
 		
-		System.out.println("[TMF-Serverstart] sucessfully loaded!");
-		System.out.println("[TMF-Serverstart] /n/n/n/n/n/n/n...dies ist (k)ein Zeilenumbruch!");
+		getLogger().info("[TMF-Serverstart] sucessfully loaded!");
+		getLogger().info("[TMF-Serverstart] /n/n/n/n/n/n/n...dies ist (k)ein Zeilenumbruch!");
 		
 		registerCommands();
 		
@@ -46,12 +46,12 @@ public class Main extends Plugin{
 
 	@Override
 	public void onDisable() {
-		System.out.println("[TMF-Serverstart] sucessfully disabled!");
+		getLogger().info("[TMF-Serverstart] sucessfully disabled!");
 		
 	}	
 	private void registerCommands() {
 	   
-		ProxyServer.getInstance().getPluginManager().registerCommand(this, new ServerstartCMD("startserver"));
+		ProxyServer.getInstance().getPluginManager().registerCommand(this, new COMMAND_Startserver("startserver"));
 		
 	}
 	public void startserver() {

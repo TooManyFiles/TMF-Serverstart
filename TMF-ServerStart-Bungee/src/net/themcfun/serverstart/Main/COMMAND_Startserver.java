@@ -4,11 +4,11 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-public class ServerstartCMD extends Command {
+public class COMMAND_Startserver extends Command {
 
 	static String playername;
 	
-	public ServerstartCMD(String name) {
+	public COMMAND_Startserver(String name) {
 		super(name);
 	}
 
