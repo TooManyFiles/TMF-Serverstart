@@ -1,7 +1,6 @@
 package net.themcfun.serverstart.Main;
 
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
 public class COMMAND_Startserver extends Command {
@@ -19,13 +18,13 @@ public class COMMAND_Startserver extends Command {
 		CommandSender cs = sender;
 		playername = cs.getName();
 		
-		if(sender instanceof CommandSender) {
+		if(sender instanceof CommandSender) { //TODO CommandSender -> Player
 			
 		// /startserver <Servername>
 		
 		if(args.length > 0) {
 		
-		Main.servername = args[1];
+		Main.startserver(args[0]);
 							
 		} else {
 			cs.sendMessage("Use /help to view a list of avaiable Commands!");
