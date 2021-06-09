@@ -19,9 +19,18 @@ public class Main extends Plugin{
 	public void onEnable() {
 		
 		getLogger().info("[TMF-Serverstart] sucessfully loaded!");
-		getLogger().info("[TMF-Serverstart] /n/n/n/n/n/n/n...dies ist (k)ein Zeilenumbruch!");
+		getLogger().info("-------------------------------------");
+		getLogger().info("Version: 1.0");
+		getLogger().info("Commands: /startserver");
+		getLogger().info("Developers: Redstone_Studios & Mr_Comand");
+		getLogger().info("-------------------------------------");
 		
 		registerCommands();
+		config();
+		
+	}	
+
+	private void config() {
 		
 		try {
 		if(!getDataFolder().exists()) {
@@ -30,10 +39,12 @@ public class Main extends Plugin{
 		File file = new File(getDataFolder().getPath(), "config.yml");
 		if(!file.exists()) {
 			file.createNewFile();
+			Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+			config.set("defaultpath", "unset");
+			ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
 		} 
 		
 		Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
-		config.set("defaultpath", "unset");
 		ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
 		
 		defaultpath = config.getString("defaultpath");
@@ -42,7 +53,8 @@ public class Main extends Plugin{
 		} catch(IOException e) {
 			
 		}
-	}	
+		
+	}
 
 	@Override
 	public void onDisable() {
@@ -56,6 +68,7 @@ public class Main extends Plugin{
 	}
 	public void startserver() {
 		try {
+			@SuppressWarnings("unused")
 			Process p = Runtime.getRuntime().exec(path + "/start.sh");
 		} catch (IOException e) {
 

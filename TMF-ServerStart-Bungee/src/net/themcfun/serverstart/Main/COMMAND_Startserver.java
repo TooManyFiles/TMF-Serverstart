@@ -16,10 +16,10 @@ public class COMMAND_Startserver extends Command {
 	@Override
 	public void execute(CommandSender sender, String[] args) {
 		
-		ProxiedPlayer pp = (ProxiedPlayer) sender;
-		playername = pp.getName();
+		CommandSender cs = sender;
+		playername = cs.getName();
 		
-		if(sender instanceof ProxiedPlayer) {
+		if(sender instanceof CommandSender) {
 			
 		// /startserver <Servername>
 		
@@ -28,7 +28,7 @@ public class COMMAND_Startserver extends Command {
 		Main.servername = args[1];
 							
 		} else {
-			pp.sendMessage("Use /help to view a list of avaiable Commands!");
+			cs.sendMessage("Use /help to view a list of avaiable Commands!");
 		}
 		} else {
 		   	playername = "Console";
