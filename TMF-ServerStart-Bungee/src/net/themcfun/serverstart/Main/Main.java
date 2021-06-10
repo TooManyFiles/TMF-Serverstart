@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -19,11 +21,11 @@ public class Main extends Plugin{
 
 	static String defaultpath;
 	static String config;
-	static String startfileName;
+	static String startcomand;
 
 	public static Main INSTANCE;
 	
-	public static ArrayList<String> servernames;
+	public static ArrayList<String> forbiddenservernames;
 
 	@Override
 	public void onEnable() {
@@ -54,8 +56,9 @@ public class Main extends Plugin{
 				file.createNewFile();
 				Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
 				config.set("defaultpath", "..\\");
-				config.set("startfile", "start.sh");
-				config.set("Servers", new ArrayList<String>());
+				config.set("startcomand", "sh {0} start.sh");
+				config.set("#{0} wird durch den pfath ersetzt.", "");
+				config.set("forbiddenServers", new ArrayList<String>());
 				ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
 			} 
 
@@ -63,8 +66,9 @@ public class Main extends Plugin{
 			ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
 
 			defaultpath = config.getString("defaultpath");
-			servernames = (ArrayList<String>) config.getList("Servers");
-
+			forbiddenservernames = (ArrayList<String>) config.getList("forbiddenServers");
+			startcomand = config.getString("startcomand");
+			
 		} catch(IOException e) {
 
 		}
@@ -82,16 +86,19 @@ public class Main extends Plugin{
 
 	}
 	public static void startserver(String servername) {
+		
 
 		if (defaultpath != "unset") {
 			
 			boolean allowed = false;
-			for (int i = 0; i < servernames.size(); i++) {
-				if (servernames.get(i).equalsIgnoreCase(servername)) {
+			for (Iterator servers = BungeeCord.getInstance().getServers().keySet().iterator(); servers.hasNext();) {
+				String server = (String) servers.next();
+				if ((server.equalsIgnoreCase(servername))&&(forbiddenservernames.contains(server))) {
 					allowed = true;
 					break;	
 				}
 			}
+			
 
 			if (!allowed) {
 				INSTANCE.getLogger().warning(ChatColor.RED + "[TMF-Serverstart] Invalid Servername!");
@@ -100,7 +107,7 @@ public class Main extends Plugin{
 			String path = (defaultpath + "\\" + servername);
 			
 			try {
-				ProcessBuilder proc = new ProcessBuilder(path + "\\" + startfileName);
+				ProcessBuilder proc = new ProcessBuilder(String.format(startcomand, path));
 				proc.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 				File pathfile = new File(path);
 				proc.directory(pathfile);

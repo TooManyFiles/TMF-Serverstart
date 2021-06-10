@@ -11,5 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="//mycloud/lukas/programmieren/liberys/BungeeCord.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
