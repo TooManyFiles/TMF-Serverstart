@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
@@ -18,6 +19,7 @@ public class Main extends Plugin{
 
 	static String defaultpath;
 	static String config;
+	static String startfileName;
 
 	public static Main INSTANCE;
 	
@@ -28,13 +30,13 @@ public class Main extends Plugin{
 
 		INSTANCE = this;
 
-		getLogger().info("[TMF-Serverstart] sucessfully loaded!");
+		getLogger().info(ChatColor.RED + "[TMF-Serverstart] sucessfully loaded!");
 		getLogger().info(" ");
-		getLogger().info("----------------------------------------");
-		getLogger().info("Version: 1.0");
-		getLogger().info("Commands: /startserver");
-		getLogger().info("Developers: Redstone_Studios & Mr_Comand");
-		getLogger().info("----------------------------------------");
+		getLogger().info(ChatColor.GRAY + "----------------------------------------");
+		getLogger().info(ChatColor.RED + "Version: 1.0");
+		getLogger().info(ChatColor.RED + "Commands: /startserver");
+		getLogger().info(ChatColor.RED + "Developers: Redstone_Studios & Mr_Comand");
+		getLogger().info(ChatColor.GRAY + "----------------------------------------");
 
 		registerCommands();
 		config();
@@ -52,6 +54,7 @@ public class Main extends Plugin{
 				file.createNewFile();
 				Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
 				config.set("defaultpath", "..\\");
+				config.set("startfile", "start.sh");
 				config.set("Servers", new ArrayList<String>());
 				ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
 			} 
@@ -70,7 +73,7 @@ public class Main extends Plugin{
 
 	@Override
 	public void onDisable() {
-		getLogger().info("[TMF-Serverstart] sucessfully disabled!");
+		getLogger().info(ChatColor.RED + "[TMF-Serverstart] sucessfully disabled!");
 
 	}	
 	private void registerCommands() {
@@ -91,13 +94,13 @@ public class Main extends Plugin{
 			}
 
 			if (!allowed) {
-				INSTANCE.getLogger().warning("[TMF-Serverstart] Invalid Servername!");
+				INSTANCE.getLogger().warning(ChatColor.RED + "[TMF-Serverstart] Invalid Servername!");
 				return;
 			}
 			String path = (defaultpath + "\\" + servername);
 			
 			try {
-				ProcessBuilder proc = new ProcessBuilder(path + "\\start.bat");
+				ProcessBuilder proc = new ProcessBuilder(path + "\\" + startfileName);
 				proc.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 				File pathfile = new File(path);
 				proc.directory(pathfile);
