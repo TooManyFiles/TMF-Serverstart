@@ -1,0 +1,8 @@
+name: TMF-Serverstart
+main: net.themcfun.serverstart.Main.Main
+version: 1.0
+author: redstonestudios
+
+commands:
+  startserver:
+    description: Starts a server
