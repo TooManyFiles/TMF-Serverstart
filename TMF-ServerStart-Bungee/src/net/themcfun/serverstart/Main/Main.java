@@ -1,16 +1,21 @@
 package net.themcfun.serverstart.Main;
 
 import java.util.List;
+
+import javax.swing.plaf.ProgressBarUI;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
@@ -26,6 +31,8 @@ public class Main extends Plugin{
 	public static Main INSTANCE;
 	
 	public static ArrayList<String> forbiddenservernames;
+	public static HashMap<String, Process> consoles = new HashMap<String, Process>();
+	public static HashMap<String, CommandSender> seeconsol = new HashMap<String, CommandSender>();
 
 	@Override
 	public void onEnable() {
@@ -56,8 +63,8 @@ public class Main extends Plugin{
 				file.createNewFile();
 				Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
 				config.set("defaultpath", "..\\");
-				config.set("startcomand", "sh {0} start.sh");
-				config.set("#{0} wird durch den pfath ersetzt.", "");
+				config.set("startcomand", "sh {path} start.sh");
+				config.set("#{path} is replaced by the pfath. ", "");
 				config.set("forbiddenServers", new ArrayList<String>());
 				ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
 			} 
@@ -67,7 +74,7 @@ public class Main extends Plugin{
 
 			defaultpath = config.getString("defaultpath");
 			forbiddenservernames = (ArrayList<String>) config.getList("forbiddenServers");
-			startcomand = config.getString("startcomand");
+			startcomand = config.getString("startcomand").replace("{path}", "%0$s");
 			
 		} catch(IOException e) {
 
@@ -94,6 +101,7 @@ public class Main extends Plugin{
 			for (Iterator servers = BungeeCord.getInstance().getServers().keySet().iterator(); servers.hasNext();) {
 				String server = (String) servers.next();
 				if ((server.equalsIgnoreCase(servername))&&(forbiddenservernames.contains(server))) {
+					servername = server;
 					allowed = true;
 					break;	
 				}
@@ -113,9 +121,9 @@ public class Main extends Plugin{
 				proc.directory(pathfile);
 				Process p = proc.start();
 
-				InputStream stdIn = p.getInputStream();
-				InputStreamReader isr = new InputStreamReader(stdIn);
-				BufferedReader br = new BufferedReader(isr);
+				p.onExit().runAsync(new MessageOnServerexit(servername, p));
+				
+				consoles.put(servername, p);
 
 				/*
 				String line = null;
