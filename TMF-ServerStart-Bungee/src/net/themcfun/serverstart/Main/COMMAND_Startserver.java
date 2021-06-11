@@ -5,7 +5,7 @@ import net.md_5.bungee.api.plugin.Command;
 
 public class COMMAND_Startserver extends Command {
 
-	String playername;
+	static String playername;
 	
 	public COMMAND_Startserver(String name) {
 		super(name);
