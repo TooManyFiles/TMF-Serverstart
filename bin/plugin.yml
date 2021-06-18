@@ -1,7 +1,7 @@
 name: TMF-Serverstart
 main: net.themcfun.serverstart.Main.Main
 version: 1.0
-author: redstonestudios
+author: redstonestudios & Mr_Comand
 
 commands:
   startserver:
