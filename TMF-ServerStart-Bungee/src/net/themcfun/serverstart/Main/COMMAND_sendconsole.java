@@ -58,7 +58,12 @@ public class COMMAND_sendconsole extends Command{
 
 	try {
 		Writer w = Main.consolinput.get(servername);
-		w.write(args[1:]);
+		String command = "";
+		for (int i = 1; i < args.length; i++) {
+			command = command + args[i];
+			
+		}
+		w.write(command+"\n");
 		w.flush();
 	} catch (IOException e2) {
 		e2.printStackTrace();
