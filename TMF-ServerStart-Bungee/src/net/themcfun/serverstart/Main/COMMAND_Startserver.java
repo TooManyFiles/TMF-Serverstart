@@ -10,13 +10,10 @@ import net.md_5.bungee.api.plugin.Command;
 
 public class COMMAND_Startserver extends Command {
 
-<<<<<<< Updated upstream
-	static String playername;
-	
-=======
-	String playername;
 
->>>>>>> Stashed changes
+String playername;
+
+
 	public COMMAND_Startserver(String name) {
 		super(name);
 	}
@@ -31,11 +28,12 @@ public class COMMAND_Startserver extends Command {
 		CommandSender cs = sender;
 		playername = cs.getName();
 
-		if(sender instanceof ProxiedPlayer) { //TODO CommandSender -> Player 
+		if(sender instanceof ProxiedPlayer) { //TODO CommandSender -> Player
 			if(Main.consoles.keySet().contains(args[0])) {
 				Main.INSTANCE.getLogger().log(Level.FINER, "Server "+args[0]+" is alredy online!! Conecting ...");
 				if(!(sender.getName().equalsIgnoreCase("CONSOLE"))) {
 					((ProxiedPlayer) sender).connect(BungeeCord.getInstance().getServers().get(args[0]));
+						sender.sendMessage("Server " + args[0] + " is alredy online!! Conecting ...");
 					BungeeCord.getInstance();
 				}
 				return;
@@ -55,5 +53,4 @@ public class COMMAND_Startserver extends Command {
 			cs.sendMessage("Use /help to view a list of avaiable Commands!");
 		}
 	}
-}	
-
+}

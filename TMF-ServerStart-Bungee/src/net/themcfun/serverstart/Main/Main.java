@@ -29,10 +29,9 @@ public class Main extends Plugin{
 	static String startcomand;
 
 	public static Main INSTANCE;
-	
+
 	public static ArrayList<String> forbiddenservernames;
-<<<<<<< Updated upstream
-=======
+
 	public static HashMap<String, Process> consoles = new HashMap<String, Process>();
 	public static HashMap<String, CommandSender> seeconsol = new HashMap<String, CommandSender>();
 	public static HashMap<String, SendConsolLog> consolprinter = new HashMap<String, SendConsolLog>();
@@ -42,8 +41,8 @@ public class Main extends Plugin{
 	public void onLoad() {
 		configread();
 	}
-	
->>>>>>> Stashed changes
+
+
 
 	@Override
 	public void onEnable() {
@@ -62,9 +61,9 @@ public class Main extends Plugin{
 		registerCommands();
 		configread();
 		startserver(config.getString("Lobbyname"));
-	}	
+	}
 
-	
+
 	private void configread() {
 
 		try {
@@ -75,43 +74,37 @@ public class Main extends Plugin{
 			if(!file.exists()) {
 				file.createNewFile();
 				Configuration config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
-<<<<<<< Updated upstream
-				config.set("defaultpath", "..\\");
-				config.set("startcomand", "sh {0} start.sh");
-				config.set("#{0} wird durch den pfath ersetzt.", "");
-=======
+
 				config.set("defaultpath", "..");
 				config.set("startcomand", "./start.sh");
 				config.set("Lobbyname", "Lobby");
 				//config.set("#{path} is replaced by the pfath", "");
->>>>>>> Stashed changes
+
 				config.set("forbiddenServers", new ArrayList<String>());
-				config.set("MOTD.default", "§1§lThe§2§lMC§4§lFun - §7§lMinigames and more!");
-				config.set("MOTD.LobbyOfline", "§1§lThe§2§lMC§4§lFun \n §4Lobby offline! Bitte kontaktieren sie uns!");
-				config.set("MOTD.Wartungsarbeiten", "§1§lThe§2§lMC§4§lFun \\n §4Wartungsarbeiten! Wir sind am umbauen!");
-				
+				config.set("MOTD.default", "ï¿½1ï¿½lTheï¿½2ï¿½lMCï¿½4ï¿½lFun - ï¿½7ï¿½lMinigames and more!");
+				config.set("MOTD.LobbyOfline", "ï¿½1ï¿½lTheï¿½2ï¿½lMCï¿½4ï¿½lFun \n ï¿½4Lobby offline! Bitte kontaktieren sie uns!");
+				config.set("MOTD.Wartungsarbeiten", "ï¿½1ï¿½lTheï¿½2ï¿½lMCï¿½4ï¿½lFun \\n ï¿½4Wartungsarbeiten! Wir sind am umbauen!");
+
 				config.set("Version.LobbyOfline", "Lobby offline!");
 				config.set("Version.Wartungsarbeiten", "Wartungsarbeiten!");
-				
+
 
 				ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
-			} 
+			}
 
 			config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
 			ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
 
 			defaultpath = config.getString("defaultpath");
 			forbiddenservernames = (ArrayList<String>) config.getList("forbiddenServers");
-<<<<<<< Updated upstream
-			startcomand = config.getString("startcomand");
-=======
+
 			forbiddenservernames = new ArrayList<String>();
 			if (forbiddenservernames==null) {
 				forbiddenservernames = new ArrayList<String>();
 			}
 			startcomand = config.getString("startcomand").replace("{path}", "%s");
->>>>>>> Stashed changes
-			
+
+
 		} catch(IOException e) {
 
 		}
@@ -120,7 +113,7 @@ public class Main extends Plugin{
 
 	@Override
 	public void onDisable() {
-		
+
 		for (Iterator<String> iterator = consoles.keySet().iterator(); iterator.hasNext();) {
 			String servername = (String) iterator.next();
 			try {
@@ -130,10 +123,10 @@ public class Main extends Plugin{
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			};
-			
+
 		}
 		getLogger().info(ChatColor.RED + "[TMF-Serverstart] sucessfully disabled!");
-	}	
+	}
 	private void registerCommands() {
 
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new COMMAND_Startserver("startserver"));
@@ -144,62 +137,48 @@ public class Main extends Plugin{
 	public void startserver(String servername) {
 		if(consoles.keySet().contains(servername)) {
 			INSTANCE.getLogger().log(Level.FINER, "Server "+servername+" is alredy online!!");
-			
+
 			return;
-			
-			
+
+
 		}
 
 		if (defaultpath != "unset") {
-			
+
 			boolean allowed = false;
 			for (Iterator<String> servers = BungeeCord.getInstance().getServers().keySet().iterator(); servers.hasNext();) {
 				String server = (String) servers.next();
-<<<<<<< Updated upstream
-				if ((server.equalsIgnoreCase(servername))&&(forbiddenservernames.contains(server))) {
-=======
+
 				if ((server.equalsIgnoreCase(servername))&&!(forbiddenservernames.contains(server))) {
 					servername = server;
->>>>>>> Stashed changes
+
 					allowed = true;
-					break;	
+					break;
 				}
 			}
-			
+
 
 			if (!allowed) {
 				INSTANCE.getLogger().warning(ChatColor.RED + "[TMF-Serverstart] Invalid Servername!");
 				return;
 			}
 			String path = (defaultpath + "/" + servername);
-			
-			
+
+
 			try {
 				ProcessBuilder proc = new ProcessBuilder(String.format(startcomand, path));
 				//proc.redirectOutput(ProcessBuilder.Redirect.INHERIT);
 				File pathfile = new File(path);
 				proc.directory(pathfile);
 				Process p = proc.start();
-<<<<<<< Updated upstream
 
-				InputStream stdIn = p.getInputStream();
-				InputStreamReader isr = new InputStreamReader(stdIn);
-				BufferedReader br = new BufferedReader(isr);
-
-				/*
-				String line = null;
-				System.out.println("[" + servername + "-ConsoleFeed]");
-
-				while ((line = br.readLine()) != null)
-					System.out.println(line);
-=======
 				p.onExit().runAsync(new MessageOnServerexit(servername, p));
-				
+
 				consoles.put(servername, p);
->>>>>>> Stashed changes
-				
+
+
 				consolinput.put(servername, new OutputStreamWriter(p.getOutputStream(), "UTF-8"));
-				
+
 				SendConsolLog runner = new SendConsolLog(servername, seeconsol.get(servername), Main.consoles.get(servername));
 				Thread tr = new Thread(runner);
 				tr.start();
