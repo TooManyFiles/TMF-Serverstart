@@ -5,6 +5,7 @@ package net.themcfun.serverstart.Main.Motd;
 
 import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.ServerPing.Protocol;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.event.ProxyPingEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
@@ -31,7 +32,6 @@ public class OnPing implements Listener {
 		}else	
 		{
 		serverPing.setDescription(Main.config.getString("MOTD.default"));
-		
 		}
 		
 		//serverPing.setFavicon(new Favicon(""));

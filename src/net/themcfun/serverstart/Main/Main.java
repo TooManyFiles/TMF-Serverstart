@@ -18,6 +18,9 @@ import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 import net.themcfun.serverstart.Main.Motd.OnPing;
+import net.themcfun.serverstart.Main.remotemaintenance.RemoteMaintenanceMain;
+
+
 
 public class Main extends Plugin{
 	public static Boolean wartung = false;
@@ -52,10 +55,14 @@ public class Main extends Plugin{
 		getLogger().info(ChatColor.RED + "Developers: Redstone_Studios & Mr_Comand");
 		getLogger().info(ChatColor.GRAY + "----------------------------------------");
 
-		 ProxyServer.getInstance().getPluginManager().registerListener(this, new OnPing());
+		ProxyServer.getInstance().getPluginManager().registerListener(this, new OnPing());
 		registerCommands();
 		configread();
 		startserver(config.getString("Lobbyname"));
+		
+		if (config.getBoolean("RemoteMaintenance.use")) {
+			//new RemoteMaintenanceMain(this);
+		}
 	}	
 
 	
@@ -80,8 +87,25 @@ public class Main extends Plugin{
 				
 				config.set("Version.LobbyOfline", "Lobby offline!");
 				config.set("Version.Wartungsarbeiten", "Wartungsarbeiten!");
+				//RemoteMaintenance
+				config.set("RemoteMaintenance.use", false);
+				config.set("RemoteMaintenance.interneal.Port", 9800);
+				config.set("RemoteMaintenance.external.Port", 9801);
 				
-
+				config.set("RemoteMaintenance.senddata.cpuUse", true);
+				config.set("RemoteMaintenance.senddata.MemoryUse", true);
+				config.set("RemoteMaintenance.modifyserver.allowStopBungee", false);
+				config.set("RemoteMaintenance.modifyserver.allowRestartBungee", true);
+				config.set("RemoteMaintenance.modifyserver.allowReloadBungee", true);
+				
+				config.set("RemoteMaintenance.interneal.key.PrivatePath", getDataFolder().getPath()+"interneal.key");
+				config.set("RemoteMaintenance.interneal.key.publicPath", getDataFolder().getPath()+"interneal.pub");
+				config.set("RemoteMaintenance.external.key.PrivatePath", getDataFolder().getPath()+"external.key");
+				config.set("RemoteMaintenance.external.key.publicPath", getDataFolder().getPath()+"external.pub");
+				
+				
+				
+				
 				ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, file);
 			} 
 

@@ -29,7 +29,6 @@ public class MessageOnServerexit implements Runnable{
 			Main.seeconsol.remove(servername);
 			Main.consolinput.remove(servername);
 		} catch (InterruptedException e) {
-			//TODO 
 			e.printStackTrace();
 		}
 														
