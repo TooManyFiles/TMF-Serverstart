@@ -33,7 +33,10 @@ public class COMMAND_seeconsole extends Command{
 			sender.sendMessage("Bitte gebe den Namen des Servers ein!");
 			return;
 		}
-		
+		if(args.length >1) {
+			sender.sendMessage("Bitte gebe den Namen des Servers ein! (Zu viele Argumente)");
+			return;
+		}
 		
 		String servername = args[0]; 
 		boolean allowed = false;

@@ -51,7 +51,7 @@ public class COMMAND_sendconsole extends Command{
 		}
 		if (!allowed)
 		{
-			sender.sendMessage("ï¿½4[TMF-Serverstart] Invalid Servername!");
+			sender.sendMessage("§4[TMF-Serverstart] Invalid Servername!");
 			return;
 		}
 
@@ -60,9 +60,10 @@ public class COMMAND_sendconsole extends Command{
 		Writer w = Main.consolinput.get(servername);
 		String command = "";
 		for (int i = 1; i < args.length; i++) {
-			command = command + args[i];
+			command = command+ args[i] + " ";
 			
 		}
+		sender.sendMessage("§4[TMF-Serverstart - "+servername+"] §r sent  Command: "+ command);
 		w.write(command+"\n");
 		w.flush();
 	} catch (IOException e2) {

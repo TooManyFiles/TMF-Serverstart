@@ -25,7 +25,10 @@ String playername;
 			sender.sendMessage("Bitte gebe den Namen des Servers ein!");
 			return;
 		}
-
+		if(args.length >1) {
+			sender.sendMessage("Bitte gebe den Namen des Servers ein! (Zu viele Argumente)");
+			return;
+		}
 
 
 		CommandSender cs = sender;
