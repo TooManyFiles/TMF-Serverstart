@@ -84,17 +84,26 @@ public class Main extends Plugin{
 
 	@Override
 	public void onDisable() {
+		for (Iterator<String> iterator = consoles.keySet().iterator(); iterator.hasNext();) {
+			String servername = (String) iterator.next();
+			try {
+				Writer w = Main.consolinput.get(servername);
+				w.write("stop\n");
+				w.flush();
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			};
+
+		}
 		getLogger().info(ChatColor.RED + "[TMF-Serverstart] sucessfully disabled!");
 
 	}	
 	private void registerCommands() {
 
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new COMMAND_Startserver("startserver"));
-<<<<<<< Updated upstream
-=======
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new COMMAND_seeconsole( "seeconsole" ));
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new COMMAND_sendconsole("sendconsole"));
->>>>>>> Stashed changes
+
 
 	}
 	public static void startserver(String servername) {

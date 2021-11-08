@@ -17,12 +17,12 @@ import net.md_5.bungee.api.plugin.Command;
  * @author Mr_Comand
  *
  */
-public class COMMAND_seeconsole extends Command{
+public class COMMAND_sendconsole extends Command{
 
 	/**
 	 * @param name
 	 */
-	public COMMAND_seeconsole(String name) {
+	public COMMAND_sendconsole(String name) {
 		super(name);
 	}
 
