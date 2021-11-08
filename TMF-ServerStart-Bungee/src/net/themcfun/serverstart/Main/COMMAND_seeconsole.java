@@ -29,7 +29,7 @@ public class COMMAND_seeconsole extends Command{
 	@SuppressWarnings("deprecation")
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-		if(args.length == 1) {
+		if(args.length == 0) {
 			sender.sendMessage("Bitte gebe den Namen des Servers ein!");
 			return;
 		}

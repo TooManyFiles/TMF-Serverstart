@@ -33,7 +33,7 @@ public class COMMAND_sendconsole extends Command{
 		sender.sendMessage("CONSOLE only Command");
 		return;
 	}
-		if(args.length == 1) {
+		if(args.length == 0) {
 			sender.sendMessage("Bitte gebe den Namen des Servers ein!");
 			return;
 		}
