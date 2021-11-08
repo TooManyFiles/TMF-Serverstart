@@ -1,5 +1,5 @@
 /**
- *
+ * 
  */
 package net.themcfun.serverstart.Main;
 
@@ -17,35 +17,28 @@ import net.md_5.bungee.api.plugin.Command;
  * @author Mr_Comand
  *
  */
-
-public class COMMAND_sendconsole extends Command{
-
+public class COMMAND_seeconsole extends Command{
 
 	/**
 	 * @param name
 	 */
-
-	public COMMAND_sendconsole(String name) {
-
+	public COMMAND_seeconsole(String name) {
 		super(name);
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void execute(CommandSender sender, String[] args) {
-	if(!(sender.getName().equalsIgnoreCase("CONSOLE"))) {
-		sender.sendMessage("CONSOLE only Command");
-		return;
-	}
-
 		if(args.length == 0) {
-
 			sender.sendMessage("Bitte gebe den Namen des Servers ein!");
 			return;
 		}
-
-
-		String servername = args[0];
+		if(args.length >1) {
+			sender.sendMessage("Bitte gebe den Namen des Servers ein! (Zu viele Argumente)");
+			return;
+		}
+		
+		String servername = args[0]; 
 		boolean allowed = false;
 		for (Iterator<String> servers = BungeeCord.getInstance().getServers().keySet().iterator(); servers.hasNext();) {
 			String server = (String) servers.next();
@@ -57,29 +50,24 @@ public class COMMAND_sendconsole extends Command{
 		}
 		if (!allowed)
 		{
-
-			sender.sendMessage("§4[TMF-Serverstart] Invalid Servername!");
-
+			sender.sendMessage("�4[TMF-Serverstart] Invalid Servername!");
 			return;
 		}
 
-
-	try {
-		Writer w = Main.consolinput.get(servername);
-
-		String command = "";
-		for (int i = 1; i < args.length; i++) {
-			command = command+ args[i] + " ";
-			
-		}
-		sender.sendMessage("§4[TMF-Serverstart - "+servername+"] §r sent  Command: "+ command);
-		w.write(command+"\n");
-		w.flush();
-	} catch (IOException e2) {
-		e2.printStackTrace();
-	}
+		try {
+			if(Main.seeconsol.get(servername).getName().equalsIgnoreCase(sender.getName())){
+				Main.seeconsol.remove(servername);
+				Main.consolprinter.get(servername).setSender(null);
+				sender.sendMessage("[" + servername + "-ConsoleFeed stopped]");
+				return;
+			}
+		}catch (NullPointerException e) {}
 
 
+		sender.sendMessage("[" + servername + "-ConsoleFeed start]");
+
+		Main.seeconsol.put(servername, sender);
+		Main.consolprinter.get(servername).setSender(sender);
 
 
 
