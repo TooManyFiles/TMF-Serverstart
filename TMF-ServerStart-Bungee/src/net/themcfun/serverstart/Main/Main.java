@@ -130,6 +130,7 @@ public class Main extends Plugin{
 	private void registerCommands() {
 
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new COMMAND_Startserver("startserver"));
+
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new COMMAND_seeconsole( "seeconsole" ));
 		ProxyServer.getInstance().getPluginManager().registerCommand(this, new COMMAND_sendconsole("sendconsole"));
 

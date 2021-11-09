@@ -17,12 +17,16 @@ import net.md_5.bungee.api.plugin.Command;
  * @author Mr_Comand
  *
  */
+
 public class COMMAND_sendconsole extends Command{
+
 
 	/**
 	 * @param name
 	 */
+
 	public COMMAND_sendconsole(String name) {
+
 		super(name);
 	}
 
@@ -33,7 +37,9 @@ public class COMMAND_sendconsole extends Command{
 		sender.sendMessage("CONSOLE only Command");
 		return;
 	}
+
 		if(args.length == 0) {
+
 			sender.sendMessage("Bitte gebe den Namen des Servers ein!");
 			return;
 		}
@@ -51,19 +57,22 @@ public class COMMAND_sendconsole extends Command{
 		}
 		if (!allowed)
 		{
-			sender.sendMessage("ง4[TMF-Serverstart] Invalid Servername!");
+
+			sender.sendMessage("ยง4[TMF-Serverstart] Invalid Servername!");
+
 			return;
 		}
 
 
 	try {
 		Writer w = Main.consolinput.get(servername);
+
 		String command = "";
 		for (int i = 1; i < args.length; i++) {
 			command = command+ args[i] + " ";
 			
 		}
-		sender.sendMessage("ง4[TMF-Serverstart - "+servername+"] งr sent  Command: "+ command);
+		sender.sendMessage("ยง4[TMF-Serverstart - "+servername+"] ยงr sent  Command: "+ command);
 		w.write(command+"\n");
 		w.flush();
 	} catch (IOException e2) {
