@@ -1,5 +1,6 @@
 package net.themcfun.serverstart.Main;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import net.md_5.bungee.BungeeCord;
@@ -7,8 +8,9 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ServerPing.Players;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.TabExecutor;
 
-public class COMMAND_Startserver extends Command {
+public class COMMAND_Startserver extends Command  implements TabExecutor{
 
 
 String playername;
@@ -58,5 +60,13 @@ String playername;
 		} else {
 			cs.sendMessage("Use /help to view a list of avaiable Commands!");
 		}
+	}
+	
+	public Iterable<String> onTabComplete(CommandSender sender, String[] args){
+
+		if(args.length==1) {
+			return BungeeCord.getInstance().getServers().keySet();
+		}
+		return new ArrayList<String>();
 	}
 }

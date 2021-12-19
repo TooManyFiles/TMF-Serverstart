@@ -7,17 +7,19 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.TabExecutor;
 
 /**
  * @author Mr_Comand
  *
  */
-public class COMMAND_seeconsole extends Command{
+public class COMMAND_seeconsole extends Command implements TabExecutor{
 
 	/**
 	 * @param name
@@ -77,5 +79,13 @@ public class COMMAND_seeconsole extends Command{
 
 
 	}
-
+	public Iterable<String> onTabComplete(CommandSender sender, String[] args){
+		if(args.length==1) {
+			System.out.println(Main.consoles.keySet());
+			return Main.consoles.keySet();
+			
+		}
+		
+		return new ArrayList<String>();
+	}
 }
