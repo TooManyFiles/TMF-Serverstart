@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -174,19 +175,19 @@ public class Main extends Plugin{
 				File pathfile = new File(path);
 				proc.directory(pathfile);
 				Process p = proc.start();
-
+				
 				p.onExit().runAsync(new MessageOnServerexit(servername, p));
 
 				consoles.put(servername, p);
 
-
+				
 				consolinput.put(servername, new OutputStreamWriter(p.getOutputStream(), "UTF-8"));
 
 				SendConsolLog runner = new SendConsolLog(servername, seeconsol.get(servername), Main.consoles.get(servername));
 				Thread tr = new Thread(runner);
 				tr.start();
 				Main.consolprinter.put(servername.toString(), runner);
-
+				
 			} catch (IOException e) {
 
 				e.printStackTrace();
