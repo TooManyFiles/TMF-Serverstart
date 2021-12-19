@@ -111,7 +111,7 @@ public class COMMAND_sendconsole extends Command implements TabExecutor{
 			}
 			
 			ArrayList<String> text = new ArrayList<String>();
-			text.add(servername);
+			
 			return text;
 		}
 		return null;
