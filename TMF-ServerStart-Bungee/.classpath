@@ -7,5 +7,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="R:/programmieren/liberys/BungeeCord.jar" sourcepath="R:/programmieren/git/repository/APIS/BungeeCord/BungeeCord"/>
+	<classpathentry kind="lib" path="gson-2.8.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
