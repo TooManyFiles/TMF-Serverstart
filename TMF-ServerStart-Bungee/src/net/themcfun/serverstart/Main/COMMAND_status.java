@@ -10,11 +10,9 @@ import ch.jamiete.mcping.MinecraftPing;
 import ch.jamiete.mcping.MinecraftPingOptions;
 import ch.jamiete.mcping.MinecraftPingReply;
 import ch.jamiete.mcping.MinecraftPingReply.Player;
-import src.br.com.azalim.mcserverping.MCPingOptions;
 import net.md_5.bungee.BungeeCord;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.config.ServerInfo;
-import net.md_5.bungee.api.connection.Server;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.api.plugin.TabExecutor;
 
@@ -71,7 +69,7 @@ public class COMMAND_status extends Command  implements TabExecutor{
 				MinecraftPingReply data;
 				try {
 					data = new MinecraftPing().getPing(new MinecraftPingOptions().setHostname(ip).setPort(port));
-					sender.sendMessage(tempServerName+" - §2 Online §2     Conected §r Players"+ data.getPlayers().getOnline() + "/" + data.getPlayers().getMax()+" "+getServerPlayers(data)+"   MOTD: "+ data.getDescription().getText());
+					sender.sendMessage(tempServerName+" - §2 Online §8     Connected  Players  §7"+ data.getPlayers().getOnline() + "§8/§7" + data.getPlayers().getMax()+" §3"+getServerPlayers(data)+"   §8MOTD: "+ data.getDescription().getText());
 				} catch (IOException e) {
 					sender.sendMessage(tempServerName+" - §4 Offline " );
 				}
@@ -81,7 +79,7 @@ public class COMMAND_status extends Command  implements TabExecutor{
 				try {
 					data = new MinecraftPing().getPing(new MinecraftPingOptions().setHostname(ip).setPort(port));
 					System.out.println(data.getDescription() + "  --  " + data.getPlayers().getOnline() + "/" + data.getPlayers().getMax());
-					sender.sendMessage(tempServerName+" - §2 Online §4 not Conected §r Players"+ data.getPlayers().getOnline() + "/" + data.getPlayers().getMax()+" "+getServerPlayers(data)+"   MOTD: "+ data.getDescription().getText());
+					sender.sendMessage(tempServerName+" - §2 Online §8 not Connected  Players  §7"+ data.getPlayers().getOnline() + "§8/§7" + data.getPlayers().getMax()+" §3"+getServerPlayers(data)+"   MOTD: "+ data.getDescription().getText());
 				} catch (IOException e) {
 					sender.sendMessage(tempServerName+" - §4 Offline " );
 				}
