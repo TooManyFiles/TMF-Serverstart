@@ -5,7 +5,7 @@ package net.themcfun.serverstart.Main;
 
 
 /**
- * @author Lukas
+ * @author Mr_Comand
  *
  */
 public class MessageOnServerexit implements Runnable{

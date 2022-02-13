@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import net.md_5.bungee.api.CommandSender;
 
 /**
- * @author Lukas
+ * @author Mr_Comand
  *
  */
 public class SendConsolLog implements Runnable{
